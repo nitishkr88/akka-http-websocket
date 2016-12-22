@@ -23,11 +23,12 @@ trait WebServer extends Directives {
   val host = config.getString("app.host")
   val port = config.getInt("app.port")
   val tickInterval = config.getInt("app.tickInterval")
+  val delimiter = config.getString("app.delimiter")
 
   val file: Path = Paths.get("prepped_data_remaining.csv")
   val fileSource: Source[ByteString, Future[IOResult]] =
     FileIO.fromPath(file)
-      .via(Framing.delimiter(ByteString("\n"), Int.MaxValue))
+      .via(Framing.delimiter(ByteString(delimiter), Int.MaxValue))
 
   val delayedSource: Source[String, Future[IOResult]] = fileSource
     .map { x =>
