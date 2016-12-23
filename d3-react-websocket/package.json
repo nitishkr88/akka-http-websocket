@@ -2,7 +2,7 @@
   "name": "d3-react-websocket",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://localhost:8083/home",
+  "homepage": "http://localhost:8083/",
   "devDependencies": {
     "react-scripts": "0.8.4"
   },

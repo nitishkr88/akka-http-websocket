@@ -22,7 +22,7 @@ object Boot extends App with WebServer {
 
   bindingFuture.onComplete {
     case Success(binding) =>
-      println(s"Server is listening on ${host}:${port}/home/")
+      println(s"Server is listening on http://${host}:${port}")
     case Failure(e) =>
       println(s"Binding failed with ${e.getMessage}")
       system.terminate()

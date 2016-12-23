@@ -48,8 +48,10 @@ trait WebServer extends Directives {
     assets ~ api
 
   def assets =
-    pathPrefix("home") {
-      getFromDirectory("d3-react-websocket/build") ~ pathSingleSlash(get(redirect("index.html", StatusCodes.PermanentRedirect)))
+    path("") {
+      getFromFile("d3-react-websocket/build/index.html")
+    } ~ {
+      getFromDirectory("d3-react-websocket/build")
     }
 
 
@@ -62,12 +64,6 @@ trait WebServer extends Directives {
         extractUpgradeToWebSocket { upgrade =>
           complete(upgrade.handleMessagesWithSinkSource(Sink.ignore, delayedSourceWS))
         }
-      }
-    } ~ path("random") {
-      val src: Source[Strict, NotUsed] = Source.fromIterator(() => Iterator.continually(ThreadLocalRandom.current.nextInt()))
-        .filter(i => i > 0 && i % 2 == 0).map(i => TextMessage(i.toString))
-      extractUpgradeToWebSocket { upgrade =>
-        complete(upgrade.handleMessagesWithSinkSource(Sink.ignore, src))
       }
     }
 

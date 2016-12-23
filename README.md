@@ -19,8 +19,8 @@ $ npm run build
 
 $ cd.. (home directory)
 $ sbt
-> ~re-start
-$ open http://localhost:8083/home/
+> ~re-start(for hot reload) or run
+$ open http://localhost:8083
 watch the chart update every 3-4 seconds....
 ```
 
